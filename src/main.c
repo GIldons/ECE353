@@ -11,13 +11,7 @@
 #include "adc.h"
 #include "timer0.h"
 #include "boardUtil.h"
-
-#define SEC_ONE 60000
-
-volatile bool Alert_1ms;
-volatile bool Alert_Timer0A;
-volatile bool Alert_Timer0B;
-
+#include "gpio_init.h"
 
 extern void serialDebugInit(void);
 char  teamNumber[] = "11";
@@ -25,11 +19,26 @@ char person1[] = "Raul Martins";
 char person2[] = "Denis Medeiros" ;
 
 
+void print_ps2(void)
+{
+  uint32_t i;
+	uint16_t psx, psy, pot;
+  while(1)
+  {
+
+    if(get_adc_values(ADC0_BASE,&psx, &psy, &pot))
+			printf("X Dir value : 0x%03x        Y Dir value : 0x%03x		 Pot value : 0x%03x\r",psx, psy, pot);
+		else
+			printf("Deu ruim\n\n");
+    for(i=0;i<1000000; i++){}
+    
+  }
+}
+
 
 //*****************************************************************************
 //*****************************************************************************
-int 
-main(void)
+int main(void)
 {
 
   
@@ -42,18 +51,12 @@ main(void)
   printf("\t%s\n\r", person1);
   printf("\t%s\n\r", person2);
   printf("****************************************\n\r");
-	
-	configure_timer0();
-	start_timer0A(SEC_ONE);
+  
+	init_gpio();
+	configure_adc0();
 	
   while(1)
   {
-		if(Alert_Timer0A) {
-			printf("Timer A\n");
-			Alert_Timer0A = false;
-		} else {
-			printf("None\n");
-		}
-		
+		print_ps2();
   }
 }

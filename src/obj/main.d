@@ -15,3 +15,4 @@
 .\obj\main.o: ..\include\adc.h
 .\obj\main.o: ..\include\timer0.h
 .\obj\main.o: boardUtil.h
+.\obj\main.o: gpio_init.h

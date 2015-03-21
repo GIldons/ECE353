@@ -418,11 +418,6 @@
               <FileType>1</FileType>
               <FilePath>.\boardUtil.c</FilePath>
             </File>
-            <File>
-              <FileName>interrupts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\interrupts.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -449,9 +444,54 @@
               <FilePath>..\drivers\adc.c</FilePath>
             </File>
             <File>
-              <FileName>timers0.c</FileName>
+              <FileName>timer0.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\drivers\timers0.c</FilePath>
+              <FilePath>..\drivers\timer0.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gpio_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>New Group</GroupName>
+          <Files>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>circular_buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\circular_buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpioPort.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\gpioPort.h</FilePath>
+            </File>
+            <File>
+              <FileName>sysctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\sysctrl.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>timer0.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\timer0.h</FilePath>
+            </File>
+            <File>
+              <FileName>uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\uart.h</FilePath>
             </File>
           </Files>
         </Group>

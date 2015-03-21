@@ -334,3 +334,23 @@ bool gpio_config_port_control(uint32_t baseAddr, uint32_t bit_mask)
   return true;
 }
 
+bool  gpio_config_analog_enable(uint32_t baseAddr, uint8_t pins)
+{
+  GPIOA_Type  *gpioPort;
+  
+  // ADD CODE
+  // Verify that the base address is a valid GPIO base address
+  // using the verifyBaseAddr function provided above
+	if(verifyBaseAddr(baseAddr) == false)
+		return false;
+	// ADD CODE
+  // Type Cast the base address to a GPIOA_Type pointer
+	else
+	{
+		gpioPort = (GPIOA_Type *)baseAddr;
+  // ADD CODE
+  // Turn on the analog enable
+		gpioPort->AMSEL |= pins;
+	}
+  return true;
+}
