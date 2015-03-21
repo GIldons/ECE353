@@ -1,79 +1,99 @@
-#include "timers.h"
+#include "timer0.h"
 
 //*****************************************************************************
-// Configure a 16/32 bit general purpose timer to wait a specified number
-// of clock cycles
+// Configure Timer 0 to be two 16-bit, periodic, count down timers.
+// Do not set the values for TAILR or TBILR and DO NOT enable the timer.
 //*****************************************************************************
-bool gp_timer_wait(uint32_t base, uint32_t ticks)
+void configure_timer0()
 {
-  TIMER0_Type *gp_timer;
-  uint32_t timer_rcgc_mask;
-  uint32_t timer_pr_mask;
+  TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
   
-  // Set the timer_rcgc_mask and timer_pr_mask using the appropriate
-  // #defines in ../include/sysctrl.h
-  switch(base)
-  {
-    case TIMER0_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R0;
-      timer_pr_mask = SYSCTL_PRTIMER_R0;
-      break;
-    }
-    case TIMER1_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R1;
-      timer_pr_mask = SYSCTL_PRTIMER_R1;
-      break;
-    }
-    case TIMER2_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R2;
-      timer_pr_mask = SYSCTL_PRTIMER_R2;
-      break;
-    }
-    case TIMER3_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R3;
-      timer_pr_mask = SYSCTL_PRTIMER_R3;
-      break;
-    }
-    case TIMER4_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R4;
-      timer_pr_mask = SYSCTL_PRTIMER_R4;
-      break;
-    }
-    case TIMER5_BASE:
-    {
-      timer_rcgc_mask = SYSCTL_RCGCTIMER_R5;
-      timer_pr_mask = SYSCTL_PRTIMER_R5;
-      break;
-    }
-    default:
-    {
-      return false;
-    }
-  }
-  
-  // Turn on the clock for the timer
-  SYSCTL->RCGCTIMER |= timer_rcgc_mask;
+  /* Turn on the clock for the timer */
+  SYSCTL->RCGCTIMER |= SYSCTL_RCGCTIMER_R0;
 
-  // Wait for the timer to turn on
-  while( (SYSCTL->PRTIMER & timer_pr_mask) == 0) {};
-    
-  
-  // ADD CODE
-  // Initialize the timer to be a 
-  //      32-bit
-  //      one-shot
-  //      count down
-  //      no interrupts
-  //
-  // See the initialization steps provided in the ECE353 eBook or
-  // the data sheet.
-  //
-  // http://ece353.engr.wisc.edu/ece353-the-book/timers/
-    
-  return true;
+  /* Wait for the timer to turn on */
+  while( (SYSCTL->PRTIMER & SYSCTL_PRTIMER_R0) == 0) {};	
+		
+	/* Disable timers A and B */
+	gp_timer->CTL &= ~(TIMER_CTL_TAEN | TIMER_CTL_TBEN);
+		
+  /* Set the timer to be in 16-bit mode */
+	gp_timer->CFG = TIMER_CFG_16_BIT;
+		
+	/* Set timers to be in periodic mode and count-down */
+	gp_timer->TAMR = (TIMER_TAMR_TAMR_PERIOD | TIMER_TAMR_TACDIR);
+		
+	/* Activating Nested Vector Interrupt Controller for timers A and B */		
+	NVIC_EnableIRQ(TIMER0A_IRQn); 
+	NVIC_EnableIRQ(TIMER0B_IRQn); 
+		
+	/* Activate the interrupts for timers A and B*/
+	gp_timer->IMR = (TIMER_IMR_TATOIM | TIMER_IMR_TBTOIM);
+
+}
+
+
+//*****************************************************************************
+// Turns on Timer0A and Turns Off Timer0B.  The TAILR is set to load_value
+//*****************************************************************************
+void start_timer0A(uint16_t load_value){
+	
+	TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
+	
+	/* Turn off timer B */
+	stop_timer0B();
+	
+	/* Set the number of clock cycles in the load register */
+	gp_timer->TAILR = load_value;
+	
+	/* Clear the ICR (it indicates when the timer has done) */
+	gp_timer->ICR |= TIMER_ICR_TATOCINT;
+	
+	/* Enable the timer A */
+	gp_timer->CTL |= TIMER_CTL_TAEN;
+	
+}
+
+//*****************************************************************************
+// Turns off Timer0A.  This function does not alter the load value.
+//*****************************************************************************
+void stop_timer0A(void) {
+	
+	TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
+	
+	/* Disable timer A*/
+	gp_timer->CTL &= ~TIMER_CTL_TAEN;
+}
+
+//*****************************************************************************
+// Turns on Timer0B and Turns Off Timer0A.  The TBILR is set to load_value
+//*****************************************************************************
+void start_timer0B(uint16_t load_value) {
+	
+	TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
+	
+	/* Turn off timer B */
+	stop_timer0A();
+	
+	/* Set the number of clock cycles in the load register */
+	gp_timer->TBILR = load_value;
+		
+	/* Clear the ICR (it indicates when the timer has done) */
+	gp_timer->ICR |= TIMER_ICR_TATOCINT;
+	
+	/* Enable the timer B */
+	gp_timer->CTL |= TIMER_CTL_TBEN;
+	
+}
+
+//*****************************************************************************
+// Turns off Timer0B.  This function does not alter the load value.
+//*****************************************************************************
+void stop_timer0B(void) {
+	
+	TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
+	
+	/* Disable timer B*/
+	gp_timer->CTL &= ~TIMER_CTL_TBEN;
+	
 }
