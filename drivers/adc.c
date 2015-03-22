@@ -30,6 +30,11 @@ void configure_adc0()
 	myADC->SSCTL2 &= ~(ADC_SSCTL2_IE0 | ADC_SSCTL2_IE1);
 	myADC->SSCTL2 &= ~(ADC_SSCTL2_END0);
 	myADC->SSCTL2 &= ~(ADC_SSCTL2_END1);
+	//Set channels
+	myADC->SSMUX2 = (	(0 << ADC_SSMUX2_MUX0_S) |
+										(1 << ADC_SSMUX2_MUX1_S) |
+										(2 << ADC_SSMUX2_MUX2_S));
+ // myADC->ACTSS |= ADC_ACTSS_ASEN2;  // Enable SS2
 }
 
 /******************************************************************************
@@ -45,16 +50,16 @@ bool get_adc_values( uint32_t adc_base, uint16_t *ps2_x, uint16_t *ps2_y, uint16
   }
   
   myADC = (ADC0_Type *)adc_base;
-  myADC->SSMUX2 = 2;          // Set the Channel
+  //myADC->SSMUX2 = 2;          // Set the Channel
   myADC->ACTSS |= ADC_ACTSS_ASEN2;  // Enable SS2
   myADC->PSSI = ADC_PSSI_SS2;     // Start SS2
   while( (myADC->RIS & ADC_RIS_INR2)  == 0){  }
 	
-  *pot = myADC->SSFIFO2 & 0xFFF;    // Read 12-bit data
   *ps2_y = myADC->SSFIFO2 & 0xFFF;    // Read 12-bit data
   *ps2_x = myADC->SSFIFO2 & 0xFFF;    // Read 12-bit data
-  
+  *pot = myADC->SSFIFO2 & 0xFFF;    // Read 12-bit data
   myADC->ISC  = ADC_ISC_IN2;          // Ack the conversion
+  myADC->ACTSS &= ~ADC_ACTSS_ASEN2;  // Disable SS2
 	return true;
 }
 
