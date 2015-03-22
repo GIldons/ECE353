@@ -26,7 +26,7 @@ void configure_adc0()
 	myADC->EMUX &= ~ADC_EMUX_EM2_ALWAYS;
   // ADD CODE
   // Set IE0, IE1, IE2 and END2 in SSCTL2
-	myADC->SSCTL2 = (ADC_SSCTL2_IE0 | ADC_SSCTL2_END2);
+	myADC->SSCTL2 = (ADC_SSCTL2_IE0 | ADC_SSCTL2_IE1 | ADC_SSCTL2_IE2 | ADC_SSCTL2_END2);
 }
 
 /******************************************************************************
@@ -42,7 +42,7 @@ bool get_adc_values( uint32_t adc_base, uint16_t *ps2_x, uint16_t *ps2_y, uint16
   }
   
   myADC = (ADC0_Type *)adc_base;
-  myADC->SSMUX2 = 2;          // Set the Channel
+  myADC->SSMUX2 = 1;          // Set the Channel
   myADC->ACTSS |= ADC_ACTSS_ASEN2;  // Enable SS2
   myADC->PSSI = ADC_PSSI_SS2;     // Start SS2
   while( (myADC->RIS & ADC_RIS_INR2)  == 0){  }
