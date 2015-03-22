@@ -22,12 +22,12 @@ char person2[] = "Denis Medeiros" ;
 void print_ps2(void)
 {
   uint32_t i;
-	uint16_t psx, psy, pot;
+	uint16_t psx, ps_y, pot;
   while(1)
   {
 
-    if(get_adc_values(ADC0_BASE,&psx, &psy, &pot))
-			printf("X Dir value : 0x%03x        Y Dir value : 0x%03x		 Pot value : 0x%03x\r",psx, psy, pot);
+    if(get_adc_values(ADC0_BASE,&psx, &ps_y, &pot))
+			printf("X Dir value : 0x%03x        Y Dir value : 0x%03x		 Pot value : 0x%03x\r",psx, ps_y, pot);
 		else
 			printf("Deu ruim\n\n");
     for(i=0;i<1000000; i++){}
