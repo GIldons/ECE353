@@ -418,6 +418,16 @@
               <FileType>1</FileType>
               <FilePath>.\boardUtil.c</FilePath>
             </File>
+            <File>
+              <FileName>interrupts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\interrupts.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpioInit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gpioInit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -447,11 +457,6 @@
               <FileName>timer0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\timer0.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\gpio_init.c</FilePath>
             </File>
           </Files>
         </Group>

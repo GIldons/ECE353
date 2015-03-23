@@ -1,5 +1,5 @@
-#ifndef __gpio_init_H__
-#define __gpio_init_H__
+#ifndef __gpio_Init_H__
+#define __gpio_Init_H__
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -7,6 +7,7 @@
 #include "sysctrl.h"
 
 void init_gpio(void);
+void read_anlogs(uint16_t *, uint16_t *, uint8_t *);
 
 #endif
 

@@ -1,8 +1,8 @@
 --cpu Cortex-M4.fp
 ".\obj\main.o"
 ".\obj\boardutil.o"
-".\obj\gpioinit.o"
 ".\obj\interrupts.o"
+".\obj\gpioinit.o"
 "..\lib\ece353_uart.lib"
 ".\obj\gpioport.o"
 ".\obj\adc.o"

@@ -3,6 +3,8 @@
 #include "adc.h"
 #include "boardUtil.h"
 
+#define MAX_READ_VALUE 0xfff
+
 void init_gpio()
 {
 	
@@ -34,3 +36,48 @@ void init_gpio()
 	gpio_config_alternate_function(ADC_GPIO_BASE, ADC_GPIO_X_PIN | ADC_GPIO_Y_PIN | ADC_GPIO_POT_PIN);
 }
 
+void read_anlogs(uint16_t * total_wave, uint16_t * duty, uint8_t * DAC)
+{
+	uint16_t ps2_x, ps2_y, pot;
+	get_adc_values(ADC0_BASE, &ps2_x, &ps2_y, &pot);
+	//Set the value for frequency
+	if(ps2_y > (int)(0.8*MAX_READ_VALUE))				/* More than 80%, 4.5 KHz */
+		*total_wave = 11111;
+	else if(ps2_y > (int)(0.7*MAX_READ_VALUE))	/* Between 70% and 80%, 4.0 KHz */
+		*total_wave = 12500;
+	else if(ps2_y > (int)(0.6*MAX_READ_VALUE))	/* Between 60% and 70%, 3.5 KHz */
+		*total_wave = 14285;
+	else if(ps2_y > (int)(0.5*MAX_READ_VALUE))	/* Between 50% and 60%, 3.0 KHz */
+		*total_wave = 16666;
+	else if(ps2_y > (int)(0.4*MAX_READ_VALUE))	/* Between 40% and 50%, 2.5 KHz */
+		*total_wave = 20000;
+	else if(ps2_y > (int)(0.3*MAX_READ_VALUE))	/* Between 30% and 40%, 2.0 KHz */
+		*total_wave = 25000;
+	else if(ps2_y > (int)(0.2*MAX_READ_VALUE))	/* Between 20% and 30%, 1.5 KHz */
+		*total_wave = 33333;
+	else																				/* Less than 10%, 1.0 KHz */
+		*total_wave = 50000;
+	
+	/* Set the value for  the Duty Cycle */
+	if(ps2_x > (int)(.8*MAX_READ_VALUE))				/* More than 80%, duty cycle 50% */
+		*duty = *total_wave/2;
+	else if(ps2_x > (int)(.2*MAX_READ_VALUE))		/* Between 20% and 80%, duty cycle 33% */
+		*duty = .33*(*total_wave);
+	else																				/* Less than 20%, duty cycle 25% */
+		*duty = *total_wave/4;
+	
+	/* Set DCA (Volume) */
+	if(pot > (int)(0.75*MAX_READ_VALUE))
+		*DAC = DAC_GPIO_5;
+	else if(pot > (int)(0.6*MAX_READ_VALUE))
+		*DAC = DAC_GPIO_4;
+	else if(pot > (int)(0.45*MAX_READ_VALUE))
+		*DAC = DAC_GPIO_3;
+	else if(pot > (int)(0.30*MAX_READ_VALUE))
+		*DAC = DAC_GPIO_2;
+	else if(pot > (int)(0.15*MAX_READ_VALUE))
+		*DAC = DAC_GPIO_1;
+	else
+		*DAC = DAC_GPIO_0;
+		
+}

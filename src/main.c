@@ -28,6 +28,22 @@ volatile bool Alert_Timer0B;
 
 bool soundGeneratorEnabled;
 
+void print_ps2(void)
+{
+  uint32_t i;
+	uint16_t psx, ps_y, pot;
+  while(1)
+  {
+
+    if(get_adc_values(ADC0_BASE,&psx, &ps_y, &pot))
+			printf("X Dir value : 0x%03x        Y Dir value : 0x%03x		 Pot value : 0x%03x\r",psx, ps_y, pot);
+		else
+			printf("Deu ruim\n\n");
+    for(i=0;i<1000000; i++){}
+    
+  }
+}
+
 /* Generate square wave using timers and interrupts */
 
 void generate_sound() {
@@ -35,10 +51,11 @@ void generate_sound() {
 	bool buttonPressed = false;
 	uint8_t DAC, countButtonPressed = 0;
 	uint16_t psx, psy, pot;
-	uint32_t numClocksTotal, numClocks1, numClocks0, dataUpButton;	
+	uint16_t numClocksTotal, numClocks1, numClocks0, dataUpButton;	
 	
 	while(1) {
 		
+		print_ps2();
 		/* Get UP button input */
 		
 		if(Alert_1ms) { /* Every 5 milliseconds */
@@ -84,7 +101,8 @@ void generate_sound() {
 			/* Get frequency, duty cycle, and volume from PS2 and Pot */
 			
 			get_adc_values(ADC0_BASE, &psx, &psy, &pot);
-			
+			//read_anlogs(&numClocksTotal, &numClocks1, &DAC);
+			//numClocks0 = 1 - numClocks1;
 			/* Range for X and Y is from 0 to 4095 */
 			/* The frequency of the processor de 50MHz */
 			
@@ -170,13 +188,13 @@ void generate_sound() {
 				
 				DAC_GPIO_PERIPH->DATA |= DAC;
 				Alert_Timer0A = false;
-				start_timer0B(2*numClocks1);
+				start_timer0B(numClocks1);
 				
 			} else { /* Send signal 0 */
 
 				DAC_GPIO_PERIPH->DATA &= ~DAC;
 				Alert_Timer0B = false;
-				start_timer0A(2*numClocks0);
+				start_timer0A(numClocks0);
 				
 			}
 		
@@ -211,21 +229,7 @@ void configure_everything() {
 }
 
 
-void print_ps2(void)
-{
-  uint32_t i;
-	uint16_t psx, ps_y, pot;
-  while(1)
-  {
 
-    if(get_adc_values(ADC0_BASE,&psx, &ps_y, &pot))
-			printf("X Dir value : 0x%03x        Y Dir value : 0x%03x		 Pot value : 0x%03x\r",psx, ps_y, pot);
-		else
-			printf("Deu ruim\n\n");
-    for(i=0;i<1000000; i++){}
-    
-  }
-}
 
 
 //*****************************************************************************
