@@ -12,3 +12,5 @@
 .\obj\gpio_init.o: ..\include\gpioPort.h
 .\obj\gpio_init.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123\TM4C123.h
 .\obj\gpio_init.o: ..\include\adc.h
+.\obj\gpio_init.o: boardUtil.h
+.\obj\gpio_init.o: ..\include\timer0.h

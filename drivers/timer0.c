@@ -7,12 +7,14 @@
 void configure_timer0()
 {
   TIMER0_Type *gp_timer = (TIMER0_Type*) TIMER0_BASE;
+  uint32_t timer_rcgc_mask = SYSCTL_RCGCTIMER_R0;
+  uint32_t timer_pr_mask = SYSCTL_PRTIMER_R0;
   
   /* Turn on the clock for the timer */
-  SYSCTL->RCGCTIMER |= SYSCTL_RCGCTIMER_R0;
+  SYSCTL->RCGCTIMER |= timer_rcgc_mask;
 
   /* Wait for the timer to turn on */
-  while( (SYSCTL->PRTIMER & SYSCTL_PRTIMER_R0) == 0) {};	
+  while( (SYSCTL->PRTIMER & timer_pr_mask) == 0) {};	
 		
 	/* Disable timers A and B */
 	gp_timer->CTL &= ~(TIMER_CTL_TAEN | TIMER_CTL_TBEN);

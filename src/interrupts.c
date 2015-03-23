@@ -13,6 +13,7 @@ void SysTick_Handler(void)
   
   // Clear the interrupt
   val = SysTick->VAL;
+	
 }
 
 extern volatile bool Alert_Timer0A;
