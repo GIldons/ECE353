@@ -23,41 +23,14 @@ static bool verifyBaseAddr(uint32_t baseAddr)
    }
 }
 
+
 //*****************************************************************************
-// Enabling the clock for the port that was passed in.
-//    1.  Verify that the address passed in is a valid base address for a 
-//        GPIO Port.  See line 1545 of TM4C123GH6PM.h to a list of #defines
-//        for valid GPIO Ports.
+// Enables a GPIO port
 //
-//    2. Turn on the clock for the given port in RGCGPIO
+// Paramters
+//    baseAddr  -  The base address of the GPIO
+//              
 //
-//        ../include/sysctrl.h contains many useful
-//        #defines that will make your code more readable and less mistake prone.
-//        Search for SYSCTL_RCGCGPIO in that file.
-//
-//        Example 
-//        SYSCTL->RCGCGPIO |= SYSCTL_RCGCGPIO_R0;
-//
-//    2. Wait until the clock is on by checking PRGPIO
-//
-//        ../include/sysctrl.h contains many useful
-//        #defines that will make your code more readable and less mistake prone.
-//        Search for SYSCTL_PRGPIO in that file.
-//
-//        Example 
-//        val = SYSCTL->PRGPIO;
-//
-//    Steps 3 & 4 are only necessary for Ports F and D.
-//
-//    3. We need to set the LOCK register to 0x4C4F434B.
-//
-//       Example code:
-//       GPIO_PORTF_LOCK_R = 0x4C4F434B ;
-//
-//    4. Set the commit register
-//      
-//        Example Code:
-//        GPIO_PORTF_CR_R = 0xFF;
 //*****************************************************************************
 bool  gpio_enable_port(uint32_t baseAddr)
 {
@@ -73,16 +46,13 @@ bool  gpio_enable_port(uint32_t baseAddr)
    {
      case GPIOA_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port A
-       // Search for RCGCGPIO and PRGPIO in ../include/sysctrl.h for bit masks for RCGCGPIO and PRGPIO.  
 			 rcgc_mask = SYSCTL_RCGCGPIO_R0;
 			 pr_mask = SYSCTL_PRGPIO_R0;
        break;
      }
      case GPIOB_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port B
 			 rcgc_mask = SYSCTL_RCGCGPIO_R1;
 			 pr_mask = SYSCTL_PRGPIO_R1;
@@ -90,7 +60,6 @@ bool  gpio_enable_port(uint32_t baseAddr)
      }
      case GPIOC_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port C
 			 rcgc_mask = SYSCTL_RCGCGPIO_R2;
 			 pr_mask = SYSCTL_PRGPIO_R2;
@@ -98,7 +67,6 @@ bool  gpio_enable_port(uint32_t baseAddr)
      }
      case GPIOD_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port D
 			 rcgc_mask = SYSCTL_RCGCGPIO_R3;
 			 pr_mask = SYSCTL_PRGPIO_R3;
@@ -106,7 +74,6 @@ bool  gpio_enable_port(uint32_t baseAddr)
      }
      case GPIOE_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port E
        rcgc_mask = SYSCTL_RCGCGPIO_R4;
        pr_mask = SYSCTL_PRGPIO_R4; 
@@ -114,7 +81,6 @@ bool  gpio_enable_port(uint32_t baseAddr)
      }
      case GPIOF_BASE:
      {
-       // ADD CODE
        // Set rcgc_mask and pr_mask for GPIO Port F
 			 rcgc_mask = SYSCTL_RCGCGPIO_R5;
 			 pr_mask = SYSCTL_PRGPIO_R5;
@@ -127,11 +93,10 @@ bool  gpio_enable_port(uint32_t baseAddr)
    }
  }
    
-   // ADD CODE
+  
    // Turn the clock on using the rcgc_mask
 	 SYSCTL->RCGCGPIO |= rcgc_mask;
 
-   // ADD CODE
    // Wait for the PRGPIO to indicate the port is ready
 	 while((SYSCTL->PRGPIO & pr_mask) == 0){}
     
@@ -160,25 +125,22 @@ bool  gpio_enable_port(uint32_t baseAddr)
 //    pins  -   A bit mask indicating which pins should be configured as digital
 //              pins.  Modify only the bits where the bitmask is equal to 1.
 //
-// Use section 10.5 of the TM4C123 data sheet to determine the bits to set in 
-// the DEN register.
 //
 //*****************************************************************************
 bool  gpio_config_digital_enable(uint32_t baseAddr, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
   
-  // ADD CODE
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr;
-  // ADD CODE
+
   // Turn on the digital enable
 		gpioPort->DEN |= pins;
 	}
@@ -192,24 +154,21 @@ bool  gpio_config_digital_enable(uint32_t baseAddr, uint8_t pins)
 //    pins  -   A bit mask indicating which pins should be configured as output
 //              pins.  Modify only the bits where the bitmask is equal to 1.
 //
-// Use section 10.5 of the TM4C123 data sheet to determine the bits to set in 
-// the DIR register.
 //*****************************************************************************
 bool  gpio_config_enable_output(uint32_t baseAddr, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
   
-  // ADD CODE
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr; 
-	// ADD CODE
+
   // Set the pins as outputs
 		gpioPort->DIR |= pins;
 	}
@@ -226,25 +185,23 @@ bool  gpio_config_enable_output(uint32_t baseAddr, uint8_t pins)
 //    pins  -   A bit mask indicating which pins should be configured as input
 //              pins.  Modify only the bits where the bitmask is equal to 1.
 //
-// Use section 10.5 of the TM4C123 data sheet to determine the bits to set in 
-// the DIR register.
 //
 //*****************************************************************************
 bool  gpio_config_enable_input(uint32_t baseAddr, uint8_t pins)
 
 {
   GPIOA_Type  *gpioPort;
-  // ADD CODE
+
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr; 
-	// ADD CODE
+
   // Set the pins as output
 		gpioPort->DIR &= !pins;
 	}
@@ -263,17 +220,17 @@ bool  gpio_config_enable_input(uint32_t baseAddr, uint8_t pins)
 bool  gpio_config_enable_pullup(uint32_t baseAddr, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
-  // ADD CODE
+
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr; 
-	// ADD CODE
+
   // Enable the pull-up resistors
 		gpioPort->PUR |= pins;
 	}
@@ -291,23 +248,31 @@ bool  gpio_config_enable_pullup(uint32_t baseAddr, uint8_t pins)
 bool  gpio_config_enable_pulldown(uint32_t baseAddr, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
-  // ADD CODE
+
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr; 
-	// ADD CODE
+
   // Enable the pull-down resistors
 		gpioPort->PDR |= pins;
 	}
   return true;
 }
 
+//*****************************************************************************
+// Configure a GPIO pin as an alternate function
+//
+// Paramters
+//    pins  -   A bit mask indicating which pins should be configured as an
+//    alternate function. Modify only the bits where the bitmask is equal to 1.
+//
+//*****************************************************************************
 bool gpio_config_alternate_function(uint32_t baseAddr, uint8_t pins)
 {
 	GPIOA_Type *gpioPort;
@@ -321,6 +286,14 @@ bool gpio_config_alternate_function(uint32_t baseAddr, uint8_t pins)
   return true;
 }
 
+//*****************************************************************************
+// Configure a GPIO pin as an alternate function
+//
+// Paramters
+//    pins  -   A bit mask indicating which pins should be configured as an
+//    alternate function. Modify only the bits where the bitmask is equal to 1.
+//
+//*****************************************************************************
 bool gpio_config_port_control(uint32_t baseAddr, uint32_t bit_mask)
 {
 	GPIOA_Type *gpioPort;
@@ -334,21 +307,28 @@ bool gpio_config_port_control(uint32_t baseAddr, uint32_t bit_mask)
   return true;
 }
 
+//*****************************************************************************
+// Configure a GPIO pin as an analog signal
+//
+// Paramters
+//    pins  -   A bit mask indicating which pins should be configured as an
+//    analog signal. Modify only the bits where the bitmask is equal to 1.
+//
+//*****************************************************************************
 bool  gpio_config_analog_enable(uint32_t baseAddr, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
   
-  // ADD CODE
   // Verify that the base address is a valid GPIO base address
   // using the verifyBaseAddr function provided above
 	if(verifyBaseAddr(baseAddr) == false)
 		return false;
-	// ADD CODE
+
   // Type Cast the base address to a GPIOA_Type pointer
 	else
 	{
 		gpioPort = (GPIOA_Type *)baseAddr;
-  // ADD CODE
+
   // Turn on the analog enable
 		gpioPort->AMSEL |= pins;
 	}
