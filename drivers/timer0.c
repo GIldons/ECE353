@@ -24,6 +24,7 @@ void configure_timer0()
 		
 	/* Set timers to be in periodic mode and count-down */
 	gp_timer->TAMR = (TIMER_TAMR_TAMR_PERIOD | TIMER_TAMR_TACDIR);
+	gp_timer->TBMR = (TIMER_TBMR_TBMR_PERIOD | TIMER_TBMR_TBCDIR);
 		
 	/* Activating Nested Vector Interrupt Controller for timers A and B */		
 	NVIC_EnableIRQ(TIMER0A_IRQn); 
@@ -81,7 +82,7 @@ void start_timer0B(uint16_t load_value) {
 	gp_timer->TBILR = load_value;
 		
 	/* Clear the ICR (it indicates when the timer has done) */
-	gp_timer->ICR |= TIMER_ICR_TATOCINT;
+	gp_timer->ICR |= TIMER_ICR_TBTOCINT;
 	
 	/* Enable the timer B */
 	gp_timer->CTL |= TIMER_CTL_TBEN;

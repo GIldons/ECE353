@@ -81,3 +81,22 @@ void read_anlogs(uint16_t * total_wave, uint16_t * duty, uint8_t * DAC)
 		*DAC = DAC_GPIO_0;
 		
 }
+
+bool Read_Up_Button(uint8_t * count)
+{
+	if((PUSH_BUTTON_GPIO_PERIPH->DATA & PUSH_BUTTON_UP_PIN) == 0)
+	{
+		if(*count < 16)
+		{
+			count++;
+			return false;
+		}
+		else
+			return true;
+	}
+	else
+		count = 0;
+	return false;
+}
+
+

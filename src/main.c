@@ -49,48 +49,35 @@ void print_ps2(void)
 void generate_sound() {
 	
 	bool buttonPressed = false;
-	uint8_t DAC, countButtonPressed = 0;
+	uint16_t DAC, countButtonPressed = 0;
 	uint16_t psx, psy, pot;
 	uint16_t numClocksTotal, numClocks1, numClocks0, dataUpButton;	
 	
 	while(1) {
-		
-		print_ps2();
 		/* Get UP button input */
-		
-		if(Alert_1ms) { /* Every 5 milliseconds */
-			
-			dataUpButton = PUSH_BUTTON_GPIO_PERIPH->DATA; /* Read data from the pin */
-			
-			if((dataUpButton & PUSH_BUTTON_UP_PIN) == 0) { /* Button pressed */
-								
-				if (countButtonPressed >= 16) {	/* If 16 ms has passed */
-					
-					if(!buttonPressed) { /* The button is not pressed */
-
-						buttonPressed = true;
-						
-						/* Toggle the sound generator */
-						
-						if (!soundGeneratorEnabled) { 	
-							soundGeneratorEnabled = true;
-						} else {
-							soundGeneratorEnabled = false;
-						}
-						
-					}
-					
-				} else { /* Reset flags when the button is released */
-					countButtonPressed++;
+		if(Alert_1ms)																								/* Every 1 milliseconds */
+		{
+			dataUpButton = PUSH_BUTTON_GPIO_PERIPH->DATA; 						/* Read data from the pin */
+			if((dataUpButton & PUSH_BUTTON_UP_PIN) == 0) 
+			{ /* Button pressed */
+				if (countButtonPressed >= 16)														/* If 16 ms has passed */
+				{
+					if(!buttonPressed)
+					{ 
+							buttonPressed = true;															/* The button is not pressed */
+							soundGeneratorEnabled = !soundGeneratorEnabled;		/* Toggle the sound generator */
+					}					
 				}
+				else 																										/* Reset flags when the button is released */
+					countButtonPressed++;
 				
-			} else { /* Button released */
+			}
+			else																											/* Button released */
+			{
 				countButtonPressed = 0;
 				buttonPressed = false;
 			}
-			
-			/* Reset the interrupt flag */
-			Alert_1ms = false;
+			Alert_1ms = false;																				/* Reset the interrupt flag */
 		}
 		
 		
@@ -102,7 +89,7 @@ void generate_sound() {
 			
 			get_adc_values(ADC0_BASE, &psx, &psy, &pot);
 			//read_anlogs(&numClocksTotal, &numClocks1, &DAC);
-			//numClocks0 = 1 - numClocks1;
+			//numClocks0 = numClocksTotal - numClocks1;
 			/* Range for X and Y is from 0 to 4095 */
 			/* The frequency of the processor de 50MHz */
 			
@@ -188,14 +175,17 @@ void generate_sound() {
 				
 				DAC_GPIO_PERIPH->DATA |= DAC;
 				Alert_Timer0A = false;
-				start_timer0B(numClocks1);
+				//start_timer0B(numClocks1);
+				start_timer0A(numClocks1);
 				
-			} else { /* Send signal 0 */
-
+			}
+			if(Alert_Timer0B)//else
+			
+			{ /* Send signal 0 */
 				DAC_GPIO_PERIPH->DATA &= ~DAC;
 				Alert_Timer0B = false;
-				start_timer0A(numClocks0);
-				
+				//start_timer0A(numClocks0);
+				start_timer0B(numClocks0);
 			}
 		
 		}
@@ -255,6 +245,7 @@ int main(void)
 	configure_everything();
 	generate_sound();
 	
+
   while(1)
   {
   }

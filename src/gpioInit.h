@@ -8,6 +8,7 @@
 
 void init_gpio(void);
 void read_anlogs(uint16_t *, uint16_t *, uint8_t *);
+bool Read_Up_Button(uint8_t *);
 
 #endif
 
