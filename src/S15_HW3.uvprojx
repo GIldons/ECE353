@@ -423,11 +423,6 @@
               <FileType>1</FileType>
               <FilePath>.\interrupts.c</FilePath>
             </File>
-            <File>
-              <FileName>gpioInit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\gpioInit.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -492,11 +487,6 @@
               <FileName>uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpioInit.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\gpioInit.h</FilePath>
             </File>
           </Files>
         </Group>
