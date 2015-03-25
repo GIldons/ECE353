@@ -1,5 +1,5 @@
 Dependencies for Project 'S15_HW3', Target 'S15-HW3': (DO NOT MODIFY !)
-F (.\main.c)(0x5512D4AD)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+F (.\main.c)(0x5512D7CB)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476E210)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476E210)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5476E210)
@@ -16,7 +16,6 @@ I (..\include\../include/sysctrl.h)(0x5508983C)
 I (..\include\adc.h)(0x5508983C)
 I (..\include\timer0.h)(0x550DE45A)
 I (boardUtil.h)(0x5512D4B5)
-I (gpioInit.h)(0x5512D454)
 F (.\boardUtil.c)(0x5512D4A3)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\boardutil_1.o --omf_browse .\obj\boardutil_1.crf --depend .\obj\boardutil_1.d)
 I (..\include\gpioPort.h)(0x5508983C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5476E210)
@@ -48,9 +47,8 @@ I (..\include\sysctrl.h)(0x5508983C)
 I (..\include\gpioPort.h)(0x5508983C)
 I (..\include\timer0.h)(0x550DE45A)
 I (..\include\adc.h)(0x5508983C)
-F (.\gpioInit.c)(0x5512D44B)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\gpioinit.o --omf_browse .\obj\gpioinit.crf --depend .\obj\gpioinit.d)
 F (..\lib\ece353_uart.lib)(0x5508983C)()
-F (..\drivers\gpioPort.c)(0x55106F76)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\gpioport.o --omf_browse .\obj\gpioport.crf --depend .\obj\gpioport.d)
+F (..\drivers\gpioPort.c)(0x5512D79D)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\gpioport.o --omf_browse .\obj\gpioport.crf --depend .\obj\gpioport.d)
 I (..\include\gpioPort.h)(0x5508983C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5476E210)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476E210)
@@ -90,7 +88,6 @@ F (..\include\sysctrl.h)(0x5508983C)()
 F (..\include\systick.h)(0x5508983C)()
 F (..\include\timer0.h)(0x550DE45A)()
 F (..\include\uart.h)(0x5508983C)()
-F (.\gpioInit.h)(0x5512D454)()
 F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x5508983C)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 513" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\lst\startup_tm4c123.lst --xref -o .\obj\startup_tm4c123.o --depend .\obj\startup_tm4c123.d)
 F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x5508983C)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -IC:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I..\include --debug-I C:\Users\JoeIII\Desktop\S15-HW3\ECE353\src\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123-D__UVISION_VERSION="513" -D_RTE_ -DTM4C123GH6PM-o .\obj\system_tm4c123.o --omf_browse .\obj\system_tm4c123.crf --depend .\obj\system_tm4c123.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476E210)

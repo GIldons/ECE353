@@ -11,7 +11,6 @@
 #include "adc.h"
 #include "timer0.h"
 #include "boardUtil.h"
-#include "gpioInit.h"
 
 #define CLOCKS_1_MS 50000
 

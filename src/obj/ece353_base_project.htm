@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\ece353_base_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\ece353_base_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Mar 25 08:31:08 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Mar 25 08:44:29 2015
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -279,8 +279,8 @@ Global Symbols
 
 <P><STRONG><a name="[cb]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
-<P><STRONG><a name="[7d]"></a>configure_everything</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = configure_everything &rArr; peripheral_init &rArr; gpio_enable_port
+<P><STRONG><a name="[7d]"></a>configure_essential</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = configure_essential &rArr; peripheral_init &rArr; gpio_enable_port
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peripheral_init
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_timer0
@@ -297,7 +297,7 @@ Global Symbols
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_timer0A
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serialDebugInit
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_anlogs
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_everything
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_essential
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
@@ -320,7 +320,7 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_analog_enable
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_everything
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_essential
 </UL>
 
 <P><STRONG><a name="[83]"></a>read_anlogs</STRONG> (Thumb, 348 bytes, Stack size 48 bytes, boardutil_1.o(.text))
@@ -410,7 +410,7 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>configure_adc0</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, adc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = configure_adc0
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_everything
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_essential
 </UL>
 
 <P><STRONG><a name="[8d]"></a>get_adc_values</STRONG> (Thumb, 84 bytes, Stack size 12 bytes, adc.o(.text))
@@ -424,7 +424,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_everything
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configure_essential
 </UL>
 
 <P><STRONG><a name="[95]"></a>stop_timer0B</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, timer0.o(.text))

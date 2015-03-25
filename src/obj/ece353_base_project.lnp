@@ -2,7 +2,6 @@
 ".\obj\main.o"
 ".\obj\boardutil_1.o"
 ".\obj\interrupts.o"
-".\obj\gpioinit.o"
 "..\lib\ece353_uart.lib"
 ".\obj\gpioport.o"
 ".\obj\adc.o"
