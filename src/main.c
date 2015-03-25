@@ -28,7 +28,7 @@ volatile bool Alert_Timer0B = true;
 
 void configure_everything()
 {	
-	init_gpio();									/* Initialize all GPIOs */
+	peripheral_init();						/* Initialize all GPIOs */
 	configure_adc0();							/* Initialize the ADC */
 	configure_timer0();						/* Configure Timer 0 */
 	SysTick_Config(CLOCKS_1_MS);	/* Initialize the SysTick timer for waiting 1 millisecond */

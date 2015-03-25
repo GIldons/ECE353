@@ -1,6 +1,9 @@
 #ifndef __BOARD_UTIL_H__
 #define __BOARD_UTIL_H__
 
+#include <stdbool.h>
+#include "TM4C123GH6PM.h"
+#include "sysctrl.h"
 #include <stdint.h>
 #include "TM4C123.h"
 #include "gpioPort.h"
@@ -45,4 +48,5 @@ struct Freq_Gen
 
 void peripheral_init(void);
 
+void read_anlogs(uint16_t *, uint16_t *, uint8_t *);
 #endif
