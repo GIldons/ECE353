@@ -474,11 +474,6 @@
               <FilePath>..\include\circular_buffer.h</FilePath>
             </File>
             <File>
-              <FileName>gpioPort.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\include\gpioPort.h</FilePath>
-            </File>
-            <File>
               <FileName>sysctrl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\sysctrl.h</FilePath>
@@ -497,6 +492,11 @@
               <FileName>uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpioInit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gpioInit.h</FilePath>
             </File>
           </Files>
         </Group>
