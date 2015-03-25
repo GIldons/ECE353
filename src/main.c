@@ -26,7 +26,7 @@ volatile bool Alert_1ms;
 volatile bool Alert_Timer0A = false;
 volatile bool Alert_Timer0B = true;
 
-void configure_everything()
+void configure_essential()
 {	
 	peripheral_init();						/* Initialize all GPIOs */
 	configure_adc0();							/* Initialize the ADC */
@@ -35,13 +35,11 @@ void configure_everything()
 }
 
 
-
-
-
 //*****************************************************************************
 //*****************************************************************************
 int main(void)
 {
+	
 	uint16_t total_wave, duty;
 	uint8_t DAC, button_count = 0;
 	bool button_pressed = false;
@@ -58,14 +56,17 @@ int main(void)
   printf("****************************************\n\r");
 
 	
-	configure_everything();
+	configure_essential();
 	
 
   while(1)
   {
 		if(Alert_1ms)
 		{
-			read_anlogs(&total_wave, &duty, &DAC);
+			/* Read data from PS2 and the potentiometer */
+			read_anlogs(&total_wave, &duty, &DAC); 
+			
+			/* Read the button and deboucing */
 			if((PUSH_BUTTON_GPIO_PERIPH->DATA & PUSH_BUTTON_UP_PIN) == 0)
 				if (button_count >= 16)
 				{
@@ -85,6 +86,7 @@ int main(void)
 			Alert_1ms = false;
 		}
 		
+		/* Generate sound based on current PS2 and potentiometer values */
 		if(soundGeneratorEnabled)
 		{
 			if(Alert_Timer0A)
